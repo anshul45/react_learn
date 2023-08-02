@@ -1,7 +1,20 @@
-import React from "react";
-import ReactDOM  from "react-dom/client";
-       
-        const react_heading = React.createElement("h1",{},"My First Heading");
-        const react_root = ReactDOM.createRoot(document.getElementById("root"));
+import React from 'react';
+import  ReactDOM  from 'react-dom/client';
 
-        react_root.render(react_heading);    
+const Title = () => (
+        <h1>
+                Food Villa
+        </h1>
+)
+
+const HeaderComponent = () => {
+        return (
+                        <div>
+                                <h1>Namaste React</h1>
+                        </div>
+                )
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(<HeaderComponent />)
