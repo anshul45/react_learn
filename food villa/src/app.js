@@ -1,22 +1,27 @@
-import React from 'react';
-import  ReactDOM  from 'react-dom/client';
-import Header from "./components/Header"
-import Body from './components/Body';
-import Footer from './components/Footer';
-
-
-    
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import About from "./components/About";
+import Error from "./components/Error";
 
 const AppLayout = () => {
-        return(
-                <React.Fragment>
-                <Header/>
-                <Body/>
-                <Footer/>
-                </React.Fragment>
-        )
-}
+  return (
+    <React.Fragment>
+      <Header />
+      <Body />
+      <Footer />
+    </React.Fragment>
+  );
+};
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const appRouter = createBrowserRouter([
+  { path: "/", element: <AppLayout />, errorElement: <Error /> },
+  { path: "/about", element: <About /> },
+]);
 
-root.render(<AppLayout />)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(<RouterProvider router={appRouter} />);
