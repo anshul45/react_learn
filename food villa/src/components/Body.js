@@ -1,5 +1,5 @@
 import RestrantCard from "./RestrantCard";
-
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 
@@ -70,7 +70,12 @@ const Body = () => {
         ) : (
           filterrestaurants?.map((restaurant) => {
             return (
-              <RestrantCard key={restaurant.info.id} {...restaurant.info} />
+              <Link
+                to={"/restaurant/" + restaurant.info.id}
+                key={restaurant.info.id}
+              >
+                <RestrantCard {...restaurant.info} />
+              </Link>
             );
           })
         )}
