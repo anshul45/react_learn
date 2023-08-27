@@ -31,7 +31,7 @@ const Body = () => {
   }
 
   const isOnline = useOnline;
-  console.log(isOnline);
+
   if (!isOnline) {
     return <h1>Offline, please check your internet connection!!</h1>;
   }

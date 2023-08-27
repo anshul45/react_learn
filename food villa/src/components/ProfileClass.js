@@ -2,7 +2,7 @@ import React from "react";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    console.log("constructor");
+
     this.state = {
       count: 0,
     };
@@ -13,7 +13,6 @@ class Profile extends React.Component {
         <h1>Profile Class Component</h1>
         <h2>name : {this.props.name}</h2>
         <h3>count: {this.state.count}</h3>
-        {console.log("class render")}
         <button
           onClick={() =>
             this.setState({
