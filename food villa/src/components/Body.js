@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { filterData } from "../utils/helper";
 import useOnline from "../utils/useOnline";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [filterrestaurants, setFilterRestaurants] = useState([]);
   const [allrestaurants, setAllRestaurants] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     //api call
@@ -64,6 +67,15 @@ const Body = () => {
         >
           Search
         </button>
+        <input
+          value={user.name}
+          onChange={(e) =>
+            setUser({
+              name: e.target.value,
+              email: `${e.target.value}@gmail.com`,
+            })
+          }
+        ></input>
       </div>
 
       <div className="flex flex-wrap px-3 justify-between">
