@@ -11,6 +11,9 @@ import RestrantMenu from "./components/RestrantMenu";
 import Profile from "./components/Profile";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import Cart from "./components/Cart";
 
 //chunking
 //code splitting
@@ -27,11 +30,13 @@ const AppLayout = () => {
     email: "anshulgarwal45@gmail.com",
   });
   return (
-    <UserContext.Provider value={{ user: user, setUser: setUser }}>
-      <Header />
-      <Outlet />
-      <Footer />
-    </UserContext.Provider>
+    <Provider store={store}>
+      <UserContext.Provider value={{ user: user, setUser: setUser }}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -56,6 +61,10 @@ const appRouter = createBrowserRouter([
             <Instamart />
           </Suspense>
         ),
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
     ],
   },

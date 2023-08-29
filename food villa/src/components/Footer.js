@@ -3,7 +3,7 @@ import UserContext from "../utils/UserContext";
 const Footer = () => {
   const { user } = useContext(UserContext);
   return (
-    <h4>
+    <h4 className="mt-10">
       this site is developed by {user.name} - {user.email}
     </h4>
   );
