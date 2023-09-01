@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
+import { YOUTUBE_SEARCH_API } from "../utils/contants";
 
 const Head = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => getSearchSugestion(), 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery]);
+
+  const getSearchSugestion = async () => {
+    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+
+    const json = await data.json();
+    console.log(json[1]);
+    setSuggestions(json[1]);
+  };
+
   const dispatch = useDispatch();
+
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
@@ -16,22 +37,41 @@ const Head = () => {
           alt="menu"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbdPZ9wDxl-bEV5M-5qkXNyYwPF3zu1L8ybxUy6lM0w7v9gkhuDaZh8CaITEF6oUpQLPg&usqp=CAU"
         />
-
-        <img
-          className="h-12  mx-5"
-          alt="logo"
-          src="https://lh3.googleusercontent.com/3zkP2SYe7yYoKKe47bsNe44yTgb4Ukh__rBbwXwgkjNRe4PykGG409ozBxzxkrubV7zHKjfxq6y9ShogWtMBMPyB3jiNps91LoNH8A=s500"
-        />
+        <a href="/">
+          <img
+            className="h-12  mx-5"
+            alt="logo"
+            src="https://lh3.googleusercontent.com/3zkP2SYe7yYoKKe47bsNe44yTgb4Ukh__rBbwXwgkjNRe4PykGG409ozBxzxkrubV7zHKjfxq6y9ShogWtMBMPyB3jiNps91LoNH8A=s500"
+          />
+        </a>
       </div>
       <div className="col-span-10  ">
-        <input
-          type="text"
-          className="w-1/2    border border-gray-400 p-2 rounded-l-full"
-        />
-        <button className="  border border-gray-400 p-2 rounded-r-full border-l-0">
-          🔍
-        </button>
+        <div className="relative">
+          <input
+            type="text"
+            className="px-5 py-2 w-1/2 border border-gray-400 p-2 rounded-l-full"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button className="  border border-gray-400 p-2 rounded-r-full border-l-0">
+            🔍
+          </button>
+        </div>
+
+        {suggestions.length >= 1 && (
+          <div className="absolute bg-white py-2 px-2 w-[29.7rem] shadow-lg rounded-lg border border-gray-100">
+            <ul>
+              {suggestions.map((s) => (
+                <li key={s} className=" hover:bg-gray-100 py-2 shadow-sm">
+                  🔎 {s}
+                  console.log{s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
+
       <div className="col-span-1">
         <img
           className="h-8"
